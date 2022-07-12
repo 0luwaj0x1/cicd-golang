@@ -1,0 +1,33 @@
+name: CI Checks
+
+on:
+  push: 
+    branches:
+      - main
+    paths:
+      - hello-api/**
+jobs:
+  build:
+    name: Build App
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set up Go 1.x
+        uses: action/setup-go@v2
+        with:
+          go-version: ^1.1.6
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: make build
+      - name: Copy files
+        run: |
+              mkdir artifacts
+              cp api artifacts/.
+      - name: Archive
+        uses: actions/upload-artifacts@v2
+        with: 
+            name: api
+            path: artifacts                  
+
