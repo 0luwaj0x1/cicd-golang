@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"hello-api/handlers/rest"
 	"log"
 	"net/http"
