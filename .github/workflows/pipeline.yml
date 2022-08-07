@@ -5,15 +5,27 @@ on:
     branches:
       - main
 jobs:
-  build:
-    name: Build App
+  test:
+    name: Test Application
     runs-on: ubuntu-latest
     steps:
-
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
         with:
-          go-version: ^1.16
+          go-version: ^1.18
+      - name: Check out code into the Go module directory 
+        uses: actions/checkout@v2
+      - name: Run Tests
+        run: go test ./...
+  build:
+    name: Build App
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.18
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
 
